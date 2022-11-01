@@ -1,0 +1,22 @@
+<div class="answer-container">
+  <div *ngFor="let question of questions">
+    <p *ngIf="question.questionType =='text'" class="question_text">{{question.questionContent}}</p>
+    <textarea *ngIf="question.answerType =='paragraph'" name="description" nbInput fullWidth disabled="true"
+      [(ngModel)]="question.answerContent" class="input-fee-amount w-100 h-textarea"></textarea>
+
+    <ul *ngIf="question.answerType =='multi-select'" class="question_seleted">
+      <li *ngFor="let option of question.answerOptions">
+        <span *ngIf="option.isSelected">
+          {{option.content}}
+        </span>
+      </li>
+      <span *ngIf="question.isUserOwn && question.isUserOwnSelected">
+        Other - {{question.userOwnAnswerContent}}
+      </span>
+    </ul>
+  </div>
+  <div class="back-to-form">
+    <a (click)="backToFormBuilder()">Back to Forms Builder</a>
+  </div>
+
+</div>

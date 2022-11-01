@@ -1,0 +1,34 @@
+<div class="builder-container">
+  <div *ngFor="let question of questions">
+    <div class="question_text">
+      <p *ngIf="question.questionType =='text'">{{question.questionContent}}</p>
+      <span *ngIf="question.questionType =='text' && question.isRequired" class="question_text" class="alert">&nbsp;
+        *</span>
+    </div>
+    <textarea *ngIf="question.answerType =='paragraph'" name="description" nbInput fullWidth
+      [(ngModel)]="question.answerContent" class="input-fee-amount w-100 h-textarea"></textarea>
+
+    <ul *ngIf="question.answerType =='multi-select'" class="question_seleted">
+      <li *ngFor="let option of question.answerOptions">
+        <mat-checkbox [(ngModel)]="option.isSelected">
+          {{option.content}}
+        </mat-checkbox>
+      </li>
+      <mat-checkbox *ngIf="question.isUserOwn" [(ngModel)]="question.isUserOwnSelected">
+        Other
+      </mat-checkbox>
+    </ul>
+    <div *ngIf="question.answerType =='multi-select' && question.isUserOwn && question.isUserOwnSelected">
+      <mat-form-field appearance="fill">
+        <input matInput type="text" [(ngModel)]="question.userOwnAnswerContent" placeholder="Other answer">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="add_new_answer">
+    <a (click)="addNewAnswer()">Add New Question</a>
+  </div>
+  <div class="review-answer">
+    <button mat-button color="primary" (click)="reviewAnswer()" class="primary">Review my answers</button>
+  </div>
+
+</div>
