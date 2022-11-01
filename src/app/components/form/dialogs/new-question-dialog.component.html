@@ -1,0 +1,45 @@
+<div>
+  <div>
+    <p class="title_text">Add a New Questions</p>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-select (selectionChange)="onQuestionTypeChange(questionTypeSelected)" [(ngModel)]="questionTypeSelected">
+        <mat-option *ngFor="let questionType of questionTypes" [value]="questionType.id">
+          {{questionType.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <input matInput type="text" [(ngModel)]="questionContent" placeholder="Type question here">
+    </mat-form-field>
+
+  </div>
+  <div *ngIf="questionTypeSelected =='multi-select'">
+    <div *ngFor="let answerOption of answerOptions">
+      <mat-form-field appearance="fill">
+        <input matInput type="text" [(ngModel)]="answerOption.content" placeholder="Add Answer Option">
+      </mat-form-field>
+
+    </div>
+    <div>
+      <p class="title_text" *ngIf="answerOptions.length <4" (click)="addAnotherAnswer()">+ Add another answer</p>
+    </div>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="isUserOwn" *ngIf="questionTypeSelected =='multi-select'">
+      Allow user to specify their own answer
+    </mat-checkbox>
+  </div>
+  <div>
+    <mat-checkbox [(ngModel)]="isRequired">
+      This field is required
+    </mat-checkbox>
+  </div>
+
+  <div class="submit-question">
+    <button mat-button color="primary" (click)="submitQuestion()">Submit</button>
+  </div>
+</div>
